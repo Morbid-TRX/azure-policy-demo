@@ -34,6 +34,7 @@ All three policies are bundled into a **Cost Governance Initiative** for simplif
 ---
 
 ## Project Structure
+```
 azure-policy-demo/
 ├── main.tf                    # Provider block only
 ├── variables.tf               # Root variables
@@ -49,6 +50,7 @@ azure-policy-demo/
 └── .github/
 └── workflows/
 └── secret-scan.yml    # Gitleaks secret scanning on every push
+```
 
 ---
 
