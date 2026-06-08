@@ -24,3 +24,4 @@ terraform {
 provider "azurerm" {
   features {}
 }
+# test branch protection
