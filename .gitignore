@@ -1,7 +1,7 @@
 # Local Terraform state — contains sensitive data, never push this
 .terraform/
 terraform.tfstate
-terraform.tfstate.backup
+terraform.tfstate*
 .terraform.lock.hcl
 
 # Environment variable files — credentials stay local
