@@ -1,12 +1,12 @@
-# Terraform Plan workflow
-# Runs automatically on every pull request to main
-# Validates the plan and posts the output as a PR comment
-# Ensures no infrastructure change merges without a clean plan
 name: Terraform Plan
 
 on:
   pull_request:
     branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   terraform-plan:
@@ -16,12 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Install Terraform on the GitHub Actions runner
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: true
 
-      # Authenticate to Azure using secrets stored in GitHub
-      # These are never in code — set in repo Settings > Secrets
       - name: Terraform Init
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -31,12 +30,29 @@ jobs:
           TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         run: terraform init
 
-      # Run terraform plan and capture output
       - name: Terraform Plan
+        id: plan
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        run: terraform plan
+        run: terraform plan -no-color
+
+      - name: Post Plan to PR
+        uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const output = `#### Terraform Plan 📖
+            \`\`\`
+            ${{ steps.plan.outputs.stdout }}
+            \`\`\``;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+            
