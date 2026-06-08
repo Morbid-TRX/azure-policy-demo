@@ -61,3 +61,37 @@ resource "azurerm_subscription_policy_assignment" "allowed_vm_skus_assignment" {
   # Subscription scope — applies to everything in this account
   subscription_id = "/subscriptions/${var.subscription_id}"
 }
+
+# POLICY DEFINITION — Require CostCenter tag
+# Every resource must have a CostCenter tag for cost tracking and chargeback
+# Without this, finance can't attribute cloud spend to the right team
+resource "azurerm_policy_definition" "require_cost_center_tag" {
+  name         = "require-cost-center-tag"
+  policy_type  = "Custom"
+  mode         = "All"
+  display_name = "Require CostCenter Tag on All Resources"
+  description  = "Ensures all resources have a CostCenter tag for cost attribution."
+
+  policy_rule = jsonencode({
+    if = {
+      # Triggers on any resource that is missing the CostCenter tag
+      field  = "tags['CostCenter']"
+      exists = false
+    }
+    then = {
+      # Deny — block the resource from being created without the tag
+      # Audit would allow untagged resources to exist, defeating the purpose
+      effect = "Deny"
+    }
+  })
+}
+
+# POLICY ASSIGNMENT — enforce tag requirement across the subscription
+resource "azurerm_subscription_policy_assignment" "require_cost_center_tag_assignment" {
+  name                 = "require-cost-center-tag-assignment"
+  display_name         = "Enforce CostCenter Tag"
+  policy_definition_id = azurerm_policy_definition.require_cost_center_tag.id
+
+  # Same subscription scope — applies to all resource groups
+  subscription_id = "/subscriptions/${var.subscription_id}"
+}
