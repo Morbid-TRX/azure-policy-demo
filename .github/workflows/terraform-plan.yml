@@ -16,15 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Checks all Terraform files are consistently formatted
-      # Fails if any file needs formatting — enforces code style in the team
-      - name: Terraform Format Check
-        run: terraform fmt -check -recursive
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: true
+
+      # Checks all Terraform files are consistently formatted
+      # Fails if any file needs formatting — enforces code style in the team
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
 
       - name: Terraform Init
         env:
