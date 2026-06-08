@@ -23,6 +23,11 @@ resource "azurerm_policy_set_definition" "cost_governance_initiative" {
     policy_definition_id = module.no_public_ip_on_vms.policy_definition_id
     reference_id         = "no-public-ip-on-vms"
   }
+
+  policy_definition_reference {
+    policy_definition_id = module.allowed_locations.policy_definition_id
+    reference_id         = "allowed-locations"
+  }
 }
 
 # INITIATIVE ASSIGNMENT — one assignment covers all policies
