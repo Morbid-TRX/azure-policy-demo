@@ -20,3 +20,8 @@ output "cost_governance_initiative_id" {
   description = "The ID of the Cost Governance Initiative"
   value       = azurerm_policy_set_definition.cost_governance_initiative.id
 }
+
+output "allowed_locations_policy_id" {
+  description = "The ID of the Allowed Locations policy definition"
+  value       = module.allowed_locations.policy_definition_id
+}
