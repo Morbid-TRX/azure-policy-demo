@@ -5,7 +5,7 @@
 
 resource "azurerm_resource_group_policy_exemption" "legacy_vm_exemption" {
   name                 = "legacy-vm-cost-center-exemption"
-  resource_group_id = "/subscriptions/${var.subscription_id}/resourceGroups/rg-terraform-state"
+  resource_group_id    = "/subscriptions/${var.subscription_id}/resourceGroups/rg-terraform-state"
   policy_assignment_id = module.require_cost_center_tag.policy_assignment_id
 
   # Waiver — used when the policy doesn't apply to this specific case
