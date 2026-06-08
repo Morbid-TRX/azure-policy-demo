@@ -42,6 +42,14 @@ Audits VMs missing the `Environment` tag. Non-blocking — for visibility only.
 - **Scope:** Subscription
 - **Why Audit and not Deny:** This tag requirement is being phased in. Teams need time to comply before hard enforcement begins. Audit gives visibility into who is non-compliant without blocking their work. Once compliance reaches an acceptable level, the effect is changed to Deny. This is the standard responsible rollout pattern — Audit first, Deny later.
 
+### 5. Allowed Resource Locations — `allowed_locations.tf`
+Restricts deployments to approved Azure regions only.
+- **Effect:** Deny
+- **Scope:** Subscription
+- **Why Deny over Audit:** Deploying to unapproved regions could violate data residency laws and incur cross-region egress costs immediately. Block it before it exists.
+- **Cost angle:** Certain regions are cheaper than others. Restricting to Southeast Asia and East Asia keeps latency low and costs predictable.
+- **Compliance angle:** Data residency requirements — regulated data must stay within approved regions.
+
 ---
 
 ## Policy Exemptions — `exemptions.tf`
@@ -60,7 +68,7 @@ The example here exempts a specific resource group from the CostCenter tag polic
 
 ## Initiative — `initiatives.tf`
 
-All three Deny policies are bundled into a **Cost Governance Initiative**.
+All Deny policies are bundled into a **Cost Governance Initiative**.
 
 **Why initiatives matter at scale:**
 
@@ -114,6 +122,10 @@ Create a new `.tf` file in the root, call the `azure_policy` module, add it to t
 
 Update the `TF_VAR_subscription_id` environment variable. Nothing in the code changes — that's why it's a variable, not hardcoded.
 
+**What if data residency requirements change?**
+
+Update the `notIn` list in `allowed_locations.tf` with the new approved regions. One file change, one PR, automatically enforced everywhere the initiative is assigned.
+
 ---
 
 ## Project Structure
@@ -127,6 +139,7 @@ azure-policy-demo/
 ├── cost_tags.tf               # Require CostCenter Tag policy
 ├── no_public_ip.tf            # No Public IP on VMs policy
 ├── audit_policies.tf          # Audit Missing Environment Tag policy
+├── allowed_locations.tf       # Allowed Resource Locations policy
 ├── exemptions.tf              # Example policy exemption with expiry
 ├── modules/
 │   └── azure_policy/
@@ -208,6 +221,7 @@ terraform apply
 |---|---|
 | Deny over Audit for cost policies | Cost control needs enforcement not visibility — Audit lets the bill run |
 | Audit for Environment tag | Phased rollout — visibility before enforcement |
+| Allowed locations policy | Prevents costly and non-compliant region deployments |
 | Module architecture | Reusable, scalable — add policies without duplication |
 | Initiative over individual assignments | One assignment per environment instead of one per policy per environment |
 | Subscription scope for Deny policies | Enforces across all resource groups — no gaps |
