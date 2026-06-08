@@ -47,8 +47,8 @@ azure-policy-demo/
 │       ├── main.tf            # Reusable policy definition + assignment
 │       ├── variables.tf       # Module input variables
 │       └── outputs.tf         # Exposes policy_definition_id for initiative use
-└── .github/
-└── workflows/
+├── .github/
+├── workflows/
 └── secret-scan.yml    # Gitleaks secret scanning on every push
 ```
 
