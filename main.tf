@@ -95,3 +95,35 @@ resource "azurerm_subscription_policy_assignment" "require_cost_center_tag_assig
   # Same subscription scope — applies to all resource groups
   subscription_id = "/subscriptions/${var.subscription_id}"
 }
+
+# POLICY INITIATIVE (Policy Set) — groups related cost policies together
+# Instead of assigning policies individually, we assign one initiative
+# This makes governance easier to manage and audit at scale
+resource "azurerm_policy_set_definition" "cost_governance_initiative" {
+  name         = "cost-governance-initiative"
+  policy_type  = "Custom"
+  display_name = "Cost Governance Initiative"
+  description  = "Bundles all cost-saving policies into a single assignable initiative."
+
+  # Reference the VM SKU policy
+  policy_definition_reference {
+    policy_definition_id = azurerm_policy_definition.allowed_vm_skus.id
+    reference_id         = "allowed-vm-skus"
+  }
+
+  # Reference the CostCenter tag policy
+  policy_definition_reference {
+    policy_definition_id = azurerm_policy_definition.require_cost_center_tag.id
+    reference_id         = "require-cost-center-tag"
+  }
+}
+
+# INITIATIVE ASSIGNMENT — assign the entire initiative at subscription level
+# One assignment covers all policies in the initiative
+# At enterprise scale this replaces managing dozens of individual assignments
+resource "azurerm_subscription_policy_assignment" "cost_governance_assignment" {
+  name                 = "cost-governance-assignment"
+  display_name         = "Enforce Cost Governance Initiative"
+  policy_definition_id = azurerm_policy_set_definition.cost_governance_initiative.id
+  subscription_id      = "/subscriptions/${var.subscription_id}"
+}
