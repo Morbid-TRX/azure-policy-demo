@@ -1,0 +1,144 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.8",
+  "serial": 29,
+  "lineage": "0763e88c-60c0-29be-ea94-f69b18adc714",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "azurerm_policy_definition",
+      "name": "require_cost_center_tag",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "Ensures all resources have a CostCenter tag for cost attribution.",
+            "display_name": "Require CostCenter Tag on All Resources",
+            "id": "/subscriptions/1a21bb0e-6eeb-422b-951e-419750468091/providers/Microsoft.Authorization/policyDefinitions/require-cost-center-tag",
+            "management_group_id": "",
+            "metadata": "{\"createdBy\":\"92986694-e811-4e46-bddb-0544d289cd76\",\"createdOn\":\"2026-06-08T14:51:55.2723055Z\",\"updatedBy\":null,\"updatedOn\":null}",
+            "mode": "All",
+            "name": "require-cost-center-tag",
+            "parameters": "",
+            "policy_rule": "{\"if\":{\"exists\":false,\"field\":\"tags['CostCenter']\"},\"then\":{\"effect\":\"Deny\"}}",
+            "policy_type": "Custom",
+            "role_definition_ids": [],
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "module": "module.allowed_vm_skus",
+      "mode": "managed",
+      "type": "azurerm_policy_definition",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "Restricts VM deployments to approved cost-effective SKUs only.",
+            "display_name": "Allowed Virtual Machine SKUs",
+            "id": "/subscriptions/1a21bb0e-6eeb-422b-951e-419750468091/providers/Microsoft.Authorization/policyDefinitions/allowed-vm-skus",
+            "management_group_id": "",
+            "metadata": "{\"createdBy\":\"92986694-e811-4e46-bddb-0544d289cd76\",\"createdOn\":\"2026-06-08T14:22:46.1557023Z\",\"updatedBy\":null,\"updatedOn\":null}",
+            "mode": "All",
+            "name": "allowed-vm-skus",
+            "parameters": "",
+            "policy_rule": "{\"if\":{\"allOf\":[{\"equals\":\"Microsoft.Compute/virtualMachines\",\"field\":\"type\"},{\"field\":\"Microsoft.Compute/virtualMachines/sku.name\",\"notIn\":[\"Standard_B1s\",\"Standard_B1ms\",\"Standard_B2s\"]}]},\"then\":{\"effect\":\"Deny\"}}",
+            "policy_type": "Custom",
+            "role_definition_ids": [],
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIwIn0="
+        }
+      ]
+    },
+    {
+      "module": "module.require_cost_center_tag",
+      "mode": "managed",
+      "type": "azurerm_policy_definition",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "Ensures all resources have a CostCenter tag for cost attribution.",
+            "display_name": "Require CostCenter Tag on All Resources",
+            "id": "/subscriptions/1a21bb0e-6eeb-422b-951e-419750468091/providers/Microsoft.Authorization/policyDefinitions/require-cost-center-tag",
+            "management_group_id": "",
+            "metadata": "{\"createdBy\":\"92986694-e811-4e46-bddb-0544d289cd76\",\"createdOn\":\"2026-06-08T14:51:55.2723055Z\",\"updatedBy\":null,\"updatedOn\":null}",
+            "mode": "All",
+            "name": "require-cost-center-tag",
+            "parameters": "",
+            "policy_rule": "{\"if\":{\"exists\":false,\"field\":\"tags['CostCenter']\"},\"then\":{\"effect\":\"Deny\"}}",
+            "policy_type": "Custom",
+            "role_definition_ids": [],
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIwIn0="
+        }
+      ]
+    },
+    {
+      "module": "module.require_cost_center_tag",
+      "mode": "managed",
+      "type": "azurerm_subscription_policy_assignment",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "",
+            "display_name": "Enforce Require CostCenter Tag on All Resources",
+            "enforce": true,
+            "id": "/subscriptions/1a21bb0e-6eeb-422b-951e-419750468091/providers/Microsoft.Authorization/policyAssignments/require-cost-center-tag-assignment",
+            "identity": [],
+            "location": "",
+            "metadata": "{\"createdBy\":\"92986694-e811-4e46-bddb-0544d289cd76\",\"createdOn\":\"2026-06-08T16:20:11.3336408Z\",\"updatedBy\":null,\"updatedOn\":null}",
+            "name": "require-cost-center-tag-assignment",
+            "non_compliance_message": [],
+            "not_scopes": null,
+            "overrides": [],
+            "parameters": "",
+            "policy_definition_id": "/subscriptions/1a21bb0e-6eeb-422b-951e-419750468091/providers/Microsoft.Authorization/policyDefinitions/require-cost-center-tag",
+            "resource_selectors": [],
+            "subscription_id": "/subscriptions/1a21bb0e-6eeb-422b-951e-419750468091",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "module.require_cost_center_tag.azurerm_policy_definition.this"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": [
+    {
+      "object_kind": "var",
+      "config_addr": "var.subscription_id",
+      "status": "pass",
+      "objects": [
+        {
+          "object_addr": "var.subscription_id",
+          "status": "pass"
+        }
+      ]
+    }
+  ]
+}
