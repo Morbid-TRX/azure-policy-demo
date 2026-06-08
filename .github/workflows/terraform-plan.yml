@@ -21,6 +21,11 @@ jobs:
         with:
           terraform_wrapper: true
 
+      # Checks all Terraform files are consistently formatted
+      # Fails if any file needs formatting — enforces code style in the team
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
       - name: Terraform Init
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}

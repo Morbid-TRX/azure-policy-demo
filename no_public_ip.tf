@@ -16,7 +16,7 @@ module "no_public_ip_on_vms" {
           equals = "Microsoft.Network/networkInterfaces"
         },
         {
-          field    = "Microsoft.Network/networkInterfaces/ipConfigurations[*].publicIpAddress"
+          field     = "Microsoft.Network/networkInterfaces/ipConfigurations[*].publicIpAddress"
           notEquals = ""
         }
       ]
