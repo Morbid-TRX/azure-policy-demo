@@ -10,6 +10,30 @@ This project deploys a set of Azure Policies that enforce cost and security guar
 
 ---
 
+## Screenshots
+
+### Policy Assignments — Live in Azure
+![Policy Assignments](docs/screenshots/azure-policies-initiatives.jpg)
+
+### Compliance Dashboard — Active Enforcement
+![Compliance Dashboard](docs/screenshots/azure-compliance.jpg)
+
+### Policy Blocking — Deny in Action
+![Policy Blocking Terminal](docs/screenshots/azure-policy-blocking-01.jpg)
+![Policy Blocking Detail](docs/screenshots/azure-policy-blocking-02.jpg)
+
+### GitHub Actions — CI/CD Workflows Passing
+![GitHub Actions](docs/screenshots/azure-policy-workflows.jpg)
+
+### PR Terraform Plan Comment — Automated Output
+![PR Terraform Plan](docs/screenshots/azure-policy-terraform-comment-01.jpg)
+![PR Terraform Plan Detail](docs/screenshots/azure-policy-terraform-comment-02.jpg)
+
+### Remote State — Azure Blob Storage
+![Blob Storage](docs/screenshots/azure-policy-blob-storage.jpg)
+
+---
+
 ## Policies Implemented
 
 ### 1. Allowed VM SKUs — `vm_skus.tf`
