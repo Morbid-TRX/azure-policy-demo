@@ -2,7 +2,7 @@
 
 End-to-end Azure cost-saving and security policies implemented using reusable Terraform modules, enforced via GitHub Actions CI/CD, with remote state management and full branch protection.
 
-Built as part of an Azure Cloud Engineer assessment to demonstrate policy-driven cloud governance at scale.
+A production-grade Azure Policy governance framework built as a personal lab project.
 
 ---
 

@@ -2,6 +2,7 @@
 .terraform/
 terraform.tfstate
 terraform.tfstate*
+*.tfstate
 .terraform.lock.hcl
 
 # Environment variable files — credentials stay local
