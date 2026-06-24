@@ -16,7 +16,7 @@ terraform {
     resource_group_name  = "rg-terraform-state"
     storage_account_name = "stterraformaiman001"
     container_name       = "tfstate"
-    key                  = "azure-policy-demo.tfstate"
+    key                  = "azure-policy-lab.tfstate"
   }
 }
 
@@ -24,4 +24,3 @@ terraform {
 provider "azurerm" {
   features {}
 }
-# test branch protection
