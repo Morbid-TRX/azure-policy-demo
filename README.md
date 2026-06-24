@@ -1,8 +1,6 @@
 # Azure Cost Governance — Policy as Code
 
-End-to-end Azure cost-saving and security policies implemented using reusable Terraform modules, enforced via GitHub Actions CI/CD, with remote state management and full branch protection.
-
-A production-grade Azure Policy governance framework built as a personal lab project.
+A production-grade Azure Policy governance framework built as a personal lab project, implementing reusable Terraform modules, GitHub Actions CI/CD, and remote state management.
 
 ---
 
@@ -130,7 +128,7 @@ Update the `notIn` list in `allowed_locations.tf` with the new approved regions.
 
 ## Project Structure
 ```bash
-azure-policy-demo/
+azure-policy-lab/
 ├── main.tf                    # Provider block and remote backend config
 ├── variables.tf               # Root input variables with validation
 ├── outputs.tf                 # Exposes all policy and initiative IDs
